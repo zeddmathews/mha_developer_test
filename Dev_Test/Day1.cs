@@ -5,7 +5,7 @@ public class Day1
 {
 	public static void Solution()
 	{
-		string path = @"C:\Users\Zain\Documents\code stuffs\tech assessments\mha developer test\MHA_Dev_Test\Dev_Test\input.txt";
+		string path = @"C:\Users\Zain\Documents\code stuffs\tech assessments\mha developer test\MHA_Dev_Test\Dev_Test\Day_1_input.txt";
 
         using (StreamReader reader = new StreamReader(path))
 		{
