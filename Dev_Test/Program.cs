@@ -7,7 +7,7 @@ namespace DevTest
     {
         static void Main(string[] args)
         {
-            //Day1.Solution();
+            Day1.Solution();
             Day2.Solution();
 
             Console.ReadLine();

@@ -24,138 +24,138 @@ Explain the concept of dependency injection in C# using code examples for constr
 Dependency injection is a design pattern in C#. It works on Loose Coupling. It is in place to make it easier to future proof your applications, similar to how React components are made independent of one another.
 Constructor injection: When the dependencies are passed to the object through the constructor, much like a React component.
 
-public class HouseClass
-{
-    private readonly Base _base;
-    private readonly Door _door;
-    private readonly Wall _wall;
-
-    public HouseClass(Base _base, Door _door, Wall _wall)
+    public class HouseClass
     {
-        _base = base;
-        _door = door;
-        _wall = wall;
+        private readonly Base _base;
+        private readonly Door _door;
+        private readonly Wall _wall;
+    
+        public HouseClass(Base _base, Door _door, Wall _wall)
+        {
+            _base = base;
+            _door = door;
+            _wall = wall;
+        }
+    
+        public void Build()
+        {
+            Base.Assemble("Base");
+            Door.Assemble("Door");
+            Wall.Assemble("Wall");
+        }
     }
 
-    public void Build()
+    public class Base
     {
-        Base.Assemble("Base");
-        Door.Assemble("Door");
-        Wall.Assemble("Wall");
+        public void Assemble(string buildingBlock)
+        {
+            Console.WriteLine($"Assembling the {buildingBlock}");
+        }
     }
-}
-
-public class Base
-{
-    public void Assemble(string buildingBlock)
-    {
-        Console.WriteLine($"Assembling the {buildingBlock}");
-    }
-}
 
 Property injection: Using get and set methods on the public properties of an object, and it expects the properties to be set before the method is called.
 
-public class HouseClass
-{
-    public Base Base { get; set };
-    public Door Door { get; set };
-    public Wall Wall { get; set };
-
-    public void Build()
+    public class HouseClass
     {
-        Base.Assemble("Base");
-        Door.Assemble("Door");
-        Wall.Assemble("Wall");    
+        public Base Base { get; set };
+        public Door Door { get; set };
+        public Wall Wall { get; set };
+    
+        public void Build()
+        {
+            Base.Assemble("Base");
+            Door.Assemble("Door");
+            Wall.Assemble("Wall");    
+        }
     }
-}
-
-public class Base
-{
-    public void Assemble(string buildingBlock)
+    
+    public class Base
     {
-        Console.WriteLine($"Assembling the {buildingBlock}");
+        public void Assemble(string buildingBlock)
+        {
+            Console.WriteLine($"Assembling the {buildingBlock}");
+        }
     }
-}
 Method injection: The method of the class accepts the required parameters. It doesn't store the parameters, but it needs them to be provided whenever the method is called.
 
-public class HouseClass
-{
-    public void Build(Base base, Door door, Wall wall)
+    public class HouseClass
     {
-        base.Assemble("Base");
-        door.Assemble("Door");
-        wall.Assemble("Wall");
+        public void Build(Base base, Door door, Wall wall)
+        {
+            base.Assemble("Base");
+            door.Assemble("Door");
+            wall.Assemble("Wall");
+        }
     }
-}
-
-public class Base
-{
-    public void Assemble(string buildingBlock)
+    
+    public class Base
     {
-        Console.WriteLine($"Assembling the {buildingBlock}");
+        public void Assemble(string buildingBlock)
+        {
+            Console.WriteLine($"Assembling the {buildingBlock}");
+        }
     }
-}
 
 How does C# manage multiple inheritance for classes, and what is an alternative mechanism for acheiving similar functionality? Show us through a code example.
 
 Technically speaking, C# doesn't manage multiple inheritance at base. What it does instead is use interfaces to handle inheritance from multiple base classes
 
-using System;
-
-public interface IBase
-{
-    void ConstructBase();
-    void TileBase();
-}
-
-public interface IWall
-{
-    void BuildWall(string side);
-    void PaintWall(string colour);
-}
-
-public interface IDoor
-{
-    void InstallDoor();
-    void PaintDoor(string colour);
-}
-
-public class House: IBase, IWall, IDoor
-{
-    public void ConstructBase()
+    using System;
+    
+    public interface IBase
     {
-        Console.WriteLine("Constructing the base");
+        void ConstructBase();
+        void TileBase();
     }
-    public void TileBase()
+    
+    public interface IWall
     {
-        Console.WriteLine("Tiling the base");
+        void BuildWall(string side);
+        void PaintWall(string colour);
     }
-    public void BuildWall()
+    
+    public interface IDoor
     {
-        Console.WriteLine("Building the wall");
+        void InstallDoor();
+        void PaintDoor(string colour);
     }
-    public void PaintWall(string colour)
+    
+    public class House: IBase, IWall, IDoor
     {
-        Console.WriteLine($"Painting the wall {colour}");
+        public void ConstructBase()
+        {
+            Console.WriteLine("Constructing the base");
+        }
+        public void TileBase()
+        {
+            Console.WriteLine("Tiling the base");
+        }
+        public void BuildWall()
+        {
+            Console.WriteLine("Building the wall");
+        }
+        public void PaintWall(string colour)
+        {
+            Console.WriteLine($"Painting the wall {colour}");
+        }
+        public void InstallDoor()
+        {
+            Console.WriteLine("Installing the door");
+        }
+        public void PaintDoor(string colour)
+        {
+            Console.WriteLine($"Painting the door {colour}");
+        }
     }
-    public void InstallDoor()
-    {
-        Console.WriteLine("Installing the door");
-    }
-    public void PaintDoor(string colour)
-    {
-        Console.WriteLine($"Painting the door {colour}");
-    }
-}
 
 Describe and show a code example of how asynchronous programming is used in C#
 Asynchronous programming is acheived through using async and await to mimic synchronous behaviour, without the drawback of having things pop up out of order.
 
-public async Task <int> GetDataAsync()
-{
-    await Task.Delay(2000); //this could be replaced with any kind of query whether it be to your own database, or an online http request to a different website
-    return 0;
-}
+    public async Task <int> GetDataAsync()
+    {
+        await Task.Delay(2000); //this could be replaced with any kind of query whether it be to your own database, or an online http request to a different website
+        return 0;
+    }
 
 # Question 3
 
@@ -180,40 +180,40 @@ Select “Beneficiaries” where the “Surname” is alphabetically between (and includ
 
 Assuming "Beneficiaries" is the table name
 
-SELECT
-*
-FROM Beneficiaries
-WHERE [Surname] BETWEEN 'Lodewyks' AND 'Smit'
-ORDER BY [Surname] ASC;
+    SELECT
+    *
+    FROM Beneficiaries
+    WHERE [Surname] BETWEEN 'Lodewyks' AND 'Smit'
+    ORDER BY [Surname] ASC;
 
 Select “Beneficiaries” sorted descending by “Surname” then “Name”
 
-SELECT
-*
-FROM Beneficiaries
-ORDER BY [Surname] DESC, [Name] DESC;
+    SELECT
+    *
+    FROM Beneficiaries
+    ORDER BY [Surname] DESC, [Name] DESC;
 
 Change all “Policies” where the “PlanId” is 934 to “PlanId” 16 
 
-UPDATE Policies
-SET PlanId = 16
-WHERE PlanId = 934;
+    UPDATE Policies
+    SET PlanId = 16
+    WHERE PlanId = 934;
 
 Get the sum (“Amount”) of all “Transactions” made in December 2018
 
-SELECT
-SUM(Amount) AS TotalAmount
-FROM Transactions
-WHERE TransDT BETWEEEN '2018-12-01' AND '2018-12-31';
+    SELECT
+    SUM(Amount) AS TotalAmount
+    FROM Transactions
+    WHERE TransDT BETWEEEN '2018-12-01' AND '2018-12-31';
 
 Create a new table with the name “Asset” containing an auto incremented unique identifier (“AssetId”), a
 description of the asset (“AssetDescription”), and the owner (“Owner”).
 
-CREATE TABLE Asset (
-    AssetId INT AUTO_INCREMENT PRIMARY KEY,
-    Owner VARCHAR(255) NOT NULL,
-    AssetDescription VARCHAR(MAX) NOT NULL
-);
+    CREATE TABLE Asset (
+        AssetId INT AUTO_INCREMENT PRIMARY KEY,
+        Owner VARCHAR(255) NOT NULL,
+        AssetDescription VARCHAR(MAX) NOT NULL
+    );
 
 # Question 5
 
