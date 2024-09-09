@@ -1,15 +1,13 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
 
-public class Day2
+public class Day2P2
 {
     public static void Solution()
     {
-        const int redLimit = 12, greenLimit = 13, blueLimit = 14;
-        int sumOfValidGames = 0;
         string path = @"C:\Users\Zain\Documents\code stuffs\tech assessments\mha developer test\MHA_Dev_Test\Dev_Test\Day_2_input.txt";
+        int totalPowerSum = 0;
+
         using (StreamReader reader = new StreamReader(path))
         {
             string game;
@@ -20,7 +18,8 @@ public class Day2
 
                 string[] pulledData = pieces[1].Split(';');
 
-                bool validGame = true;
+                int maxRed = 0, maxGreen = 0, maxBlue = 0;
+
                 foreach (var pull in pulledData)
                 {
                     var colours = pull.Split(',');
@@ -39,16 +38,15 @@ public class Day2
                         else if (colourType == "blue")
                             blueCount += cubeTotal;
                     }
-                    if (redCount > redLimit || greenCount > greenLimit || blueCount > blueLimit)
-                    { 
-                        validGame = false;
-                        break ;
-                    }
+                    if (redCount > maxRed) maxRed = redCount;
+                    if (greenCount > maxGreen) maxGreen = greenCount;
+                    if (blueCount > maxBlue) maxBlue = blueCount;
                 }
-                if (validGame == true)
-                    sumOfValidGames += gameId;
+                int power = maxRed * maxGreen * maxBlue;
+                totalPowerSum += power;
             }
-            Console.WriteLine($"Day 2 valid games: {sumOfValidGames}");
+
+            Console.WriteLine($"Day 2 Part 2 total power sum: {totalPowerSum}");
         }
     }
 }

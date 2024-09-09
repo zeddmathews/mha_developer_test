@@ -9,6 +9,7 @@ namespace DevTest
         {
             Day1.Solution();
             Day2.Solution();
+            Day2P2.Solution();
 
             Console.ReadLine();
 

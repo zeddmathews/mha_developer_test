@@ -24,7 +24,7 @@ public class Day1
                 int sumLine = ExtractFirstLastDigit(processedLine);
                 total += sumLine;
             }
-            Console.WriteLine($"Day 1 total {total}");
+            Console.WriteLine($"Day 1 total: {total}");
         }
     }
 
